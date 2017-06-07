@@ -155,7 +155,7 @@ public class RedPacketApi {
         RedPacketParam param = new RedPacketParam();
         param.setMchBillNo("test124");
         param.setPartnerId("1265636101");
-        param.setPartnerKey("brjh9ztiwlih6zkixtaa7hol377ie5jf");
+        param.setPartnerKey("brajh9ztiwlih6zkixtaa7hol377ie5jf");
         param.setAppId("wx093a7087c59fbc99");
         param.setSendName("拼货宝");
         param.setOpenId("o5bZkv0Onl5FSxIo8aHXkvQ6KwWE");
