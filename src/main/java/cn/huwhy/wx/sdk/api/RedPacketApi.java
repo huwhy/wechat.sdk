@@ -1,30 +1,17 @@
 package cn.huwhy.wx.sdk.api;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringReader;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.net.ssl.SSLContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -133,40 +120,6 @@ public class RedPacketApi {
             result.setErrCodeDes(e.getMessage());
         }
         return result;
-    }
-
-    public static void main(String[] args) throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
-        KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        File file = new File("/data/wechat/conf/apiclient_cert.p12");
-        FileInputStream fileInputStream = new FileInputStream(file);
-        char[] password = "1265636101".toCharArray();
-        keyStore.load(fileInputStream, password);
-
-        SSLContext content = SSLContexts.custom()
-                .loadKeyMaterial(keyStore, password).build();
-        HttpClientBuilder builder = HttpClients.custom();
-        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
-                content,
-                new String[]{"TLSv1"},
-                null,
-                SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
-        builder.setSSLSocketFactory(sslsf);
-        CloseableHttpClient httpClient = builder.build();
-        RedPacketParam param = new RedPacketParam();
-        param.setMchBillNo("test124");
-        param.setPartnerId("1265636101");
-        param.setPartnerKey("brajh9ztiwlih6zkixtaa7hol377ie5jf");
-        param.setAppId("wx093a7087c59fbc99");
-        param.setSendName("拼货宝");
-        param.setOpenId("o5bZkv0Onl5FSxIo8aHXkvQ6KwWE");
-        param.setTotalAmount(300);
-        param.setTotalNum(3);
-        param.setWishing("给你一个红包");
-        param.setClientIp("192.168.1.1");
-        param.setActName("测试红包");
-        param.setRemark("test");
-        WxRedpackResult redpackResult = sendGroupRedPacket(httpClient, param);
-        System.out.println(redpackResult);
     }
 
     public static class RedPacketParam {
