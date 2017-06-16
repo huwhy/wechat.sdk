@@ -25,6 +25,7 @@ import cn.huwhy.wx.sdk.aes.WxCryptUtil;
  * 微信统一下单
  */
 public class MpOrderApi {
+    private static String SUCCESS = "SUCCESS";
     private static Logger logger  = LoggerFactory.getLogger(MpOrderApi.class);
     private static String API_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
@@ -589,6 +590,10 @@ public class MpOrderApi {
 
         public void setCodeUrl(String codeUrl) {
             this.codeUrl = codeUrl;
+        }
+
+        public boolean isOk() {
+            return SUCCESS.equals(returnCode) && SUCCESS.equals(resultCode);
         }
     }
 
