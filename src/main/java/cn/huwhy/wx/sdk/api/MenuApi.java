@@ -5,8 +5,11 @@ import java.io.IOException;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.ImmutableMap;
 
+import cn.huwhy.wx.sdk.model.Menu;
 import cn.huwhy.wx.sdk.model.MenuButton;
 import cn.huwhy.wx.sdk.model.Result;
+
+import static java.util.Arrays.asList;
 
 public class MenuApi {
 
@@ -24,17 +27,17 @@ public class MenuApi {
     }
 
     public static void main(String[] args) throws IOException {
-        String accessToken = "5DsDwC6UIpd75YzvCz20o0fpRX2XzDMwK-d1nX7U4aNKRelnmvQRCQCS-bVbpyb0ysalPvtxRot2vDY2QWOJUY2jpgfhQCfKSWYTw9PgTvgUs6O6GDTK_APC8LgL4n2gMYHjAHARDM";
-//        MenuButton mb = get(accessToken);
-//        Menu menu = new Menu();
-//        menu.setName("第一栏");
-//        Menu subMenu = new Menu();
-//        subMenu.setName("第一栏1");
-//        subMenu.setType("view");
-//        subMenu.setUrl("http://angel.huwhy.cn/mp-article/5.html");
-//        menu.setSubMenus(asList(subMenu));
-//
-//        Result r = create(accessToken, new MenuButton(asList(menu)));
-//        System.out.println(r);
+        String accessToken = "K1pjPMys_9xgZQFdtke8mzQKbFugoZWPe9zyxLkX3l67X6J5Ob_NAQR6t8AG6NMEBEhKsqnaJk7OOo9_dhv3UoTaGRSCIYMtPo8b6gNDzyhrIfyuWkAD0zSoJhHFgGqvSNZdAEALGS";
+        MenuButton mb = get(accessToken);
+        Menu menu = new Menu();
+        menu.setName("买家");
+        Menu subMenu = new Menu();
+        subMenu.setName("卖家");
+        subMenu.setType("view");
+        subMenu.setUrl("http://angel.huwhy.cn/mp-article/5.html");
+        menu.setSubMenus(asList(subMenu));
+
+        Result r = create(accessToken, new MenuButton(asList(menu)));
+        System.out.println(r);
     }
 }

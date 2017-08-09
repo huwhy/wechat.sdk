@@ -14,7 +14,7 @@ public class TemplateMessageApi {
     }
 
     public static void main(String[] args) throws IOException {
-        String accessToken = "5DsDwC6UIpd75YzvCz20o0fpRX2XzDMwK-d1nX7U4aNKRelnmvQRCQCS-bVbpyb0ysalPvtxRot2vDY2QWOJUY2jpgfhQCfKSWYTw9PgTvgUs6O6GDTK_APC8LgL4n2gMYHjAHARDM";
+        String accessToken = "5D_hPh3yfmWS9hTzTwa0LXpzU_dMCy2nzdLZnQEhUdanmP-qQxTleJgGgJuTBqR01oxmwCB_SHhaQp430ZXmpJej-nubLjExdxdn6TO9lib-9cHqn3ZK4_vpHlaCBWZgCRFjAAAMBP";
         TemplateMessage message = new TemplateMessage();
         message.setToUser("o4FxKuCStiQwcUXrPSLxLmBtUc3s");
         message.setTemplateId("e3oiRbdIReasB8C_YmPJe_JcogsmFI7RV9cfgCUtYj8");

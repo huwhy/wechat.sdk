@@ -1,6 +1,11 @@
 package cn.huwhy.wx.sdk.api;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +21,11 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -159,4 +167,28 @@ public class HttpClientUtil {
         return httpClient != null ? httpClient : client;
     }
 
+    public static void main(String[] args) throws IOException {
+        HttpPost post = new HttpPost("https://s.taobao.com/image");
+        File file = new File("/data/taobao.jpg");
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        FileInputStream f = new FileInputStream(file);
+        byte[] buf = new byte[1024];
+        while (f.read(buf) != -1) {
+            out.write(buf);
+        }
+        ByteArrayEntity ent = new ByteArrayEntity(out.toByteArray(), ContentType.create("multipart/form-data", Charset.defaultCharset()));
+        post.setEntity(ent);
+//        post.setHeader("Referer", "https://s.taobao.com");
+//        post.setHeader("Origin", "https://s.taobao.com");
+        HttpClientBuilder clientBuilder = HttpClients.custom();
+        CloseableHttpClient client = clientBuilder.build();
+        CloseableHttpResponse response = client.execute(post);
+        final StatusLine statusLine = response.getStatusLine();
+        System.out.println(statusLine.getStatusCode());
+        final HttpEntity entity = response.getEntity();
+        InputStream in = entity.getContent();
+        byte[] bytes = new byte[1024];
+        in.read(bytes);
+        System.out.println(new String(bytes));
+    }
 }

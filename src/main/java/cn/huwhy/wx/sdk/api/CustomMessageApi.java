@@ -1,13 +1,16 @@
 package cn.huwhy.wx.sdk.api;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 
 import cn.huwhy.wx.sdk.model.CustomMessage;
+import cn.huwhy.wx.sdk.model.GroupMessage;
 import cn.huwhy.wx.sdk.model.Result;
-import cn.huwhy.wx.sdk.model.TextCustomMessage;
+import cn.huwhy.wx.sdk.model.TextGroupMessage;
 
 /**
  * 微信客服消息接口
@@ -23,6 +26,8 @@ public abstract class CustomMessageApi {
 
     public static final String API_URI = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
 
+    public static final String API_GROUD_URI = "https://api.weixin.qq.com/cgi-bin/message/mass/send";
+
     private static Logger logger = LoggerFactory.getLogger(CustomMessageApi.class);
 
     public static boolean send(String accessToken, CustomMessage message) {
@@ -35,9 +40,19 @@ public abstract class CustomMessageApi {
         }
     }
 
+    public static boolean send(String accessToken, GroupMessage message) {
+        try {
+            Result result = HttpClientUtil.post(API_GROUD_URI, accessToken, JSON.toJSONString(message));
+            return result.isOk();
+        } catch (Throwable e) {
+            logger.warn("group message send:", e);
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
-        String accessToken = "5DsDwC6UIpd75YzvCz20o0fpRX2XzDMwK-d1nX7U4aNKRelnmvQRCQCS-bVbpyb0ysalPvtxRot2vDY2QWOJUY2jpgfhQCfKSWYTw9PgTvgUs6O6GDTK_APC8LgL4n2gMYHjAHARDM";
-        TextCustomMessage message = CustomMessage.textMessage("o4FxKuCStiQwcUXrPSLxLmBtUc3s");
+        String accessToken = "5D_hPh3yfmWS9hTzTwa0LXpzU_dMCy2nzdLZnQEhUdanmP-qQxTleJgGgJuTBqR01oxmwCB_SHhaQp430ZXmpJej-nubLjExdxdn6TO9lib-9cHqn3ZK4_vpHlaCBWZgCRFjAAAMBP";
+        TextGroupMessage message = new TextGroupMessage(Arrays.asList("o4FxKuCStiQwcUXrPSLxLmBtUc3s", "TextGroupMessage"));
         message.setContent("hello, world!");
         send(accessToken, message);
     }

@@ -17,8 +17,7 @@ import static com.google.common.collect.ImmutableMap.of;
 public class UserApi {
 
     private static String INFO_API = "https://api.weixin.qq.com/cgi-bin/user/info";
-    private static String LIST_INFO_API = "https://api.weixin.qq.com/cgi-bin/user/info/batchget";
-    private static String LIST_INFO_API2 = "https://api.weixin.qq.com/cgi-bin/user/get";
+    private static String LIST_INFO_API = "https://api.weixin.qq.com/cgi-bin/user/get";
 
     public static UserInfo getUserInfo(String accessToken, String openId) {
         Result result = HttpClientUtil.get(INFO_API, of("access_token", accessToken, "openid", openId), UserInfo.class);
@@ -40,7 +39,7 @@ public class UserApi {
     }
 
     public static void main(String[] args) throws IOException {
-        String accessToken = "yLBcTWWlfHuqvfxiFdJkPNrZN8AA0kvmZwD5DhilW7DoKeXIgUW0kH2I7XDufBUW96hTDdXP2i5qUCF2DAK11z0k4M0Zkhh6BH1E0d_zuWUDNNmftDEDnZPyZ69nxtfVUPNeAEAGBZ";
+        String accessToken = "t6ejPpm3I90EqmsuKnI-jERCfLUdtz_wukBeh77sdvYSCTWyjFkAc_YL3SR2nA0ZQSqQw_AbV-7dRvzFdcBHdE6FrCd1EedRmZXkmcyhJFQCqW8yoMpWShT1inJktuO1KKJfACAXXW";
 
         UserList userInfo = listUser(accessToken, "");
         System.out.println(toJSONString(userInfo));
