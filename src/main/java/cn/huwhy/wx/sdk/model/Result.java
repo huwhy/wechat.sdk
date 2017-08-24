@@ -1,11 +1,22 @@
 package cn.huwhy.wx.sdk.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Result {
 
+    private static Map<Integer, String> errorMsg = new HashMap<>();
+
     private static Integer ZERO = 0;
+
+    static {
+        errorMsg.put(ZERO, "success");
+        errorMsg.put(-1, "微信服务器繁忙，请稍后再试");
+        errorMsg.put(48001, "接口功能未授权，请确认公众号已获得该权限");
+    }
 
     public static Result ok(Object data) {
         Result result = new Result();
@@ -58,5 +69,9 @@ public class Result {
 
     public String toJson() {
         return JSON.toJSONString(this);
+    }
+
+    public String getErrMessage() {
+        return errorMsg.getOrDefault(code, message);
     }
 }
